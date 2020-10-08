@@ -1,5 +1,7 @@
 <?php
 
+use App\Postcard;
+use App\PostcardSendingService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +28,14 @@ Route::get('/payment', [App\Http\Controllers\PayOrderController::class, 'store']
 Route::get('/channels', [App\Http\Controllers\ChannelController::class, 'index'])->name('channels.index');
 
 Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'])->name('posts.create');
+
+/**
+ * learning facades
+ */
+Route::get('/postcard', function () {
+    (new PostcardSendingService(4, 3, 'kathmandu'))->sendPostcard('Here is the gift for you', 'biratpandey77@gmail.com');
+});
+
+Route::get('/facades', function () {
+    Postcard::sendPostcard('some message', 'birat@gmail.com');
+});

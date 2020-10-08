@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Billing\PaymentGatewayContract;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Views\Composers\ChannelComposer;
+use App\PostcardSendingService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(PaymentGatewayContract::class, function ($app) {
             return new BankPaymentGateway('USD');
+        });
+        // alias used referenced by Postcard
+        $this->app->singleton('Postcard', function ($app) {
+            return new PostcardSendingService(4, 3, 'chicago');
         });
     }
 
