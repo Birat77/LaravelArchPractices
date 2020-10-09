@@ -1,8 +1,10 @@
 <?php
 
 use App\Postcard;
+use Illuminate\Support\Str;
 use App\PostcardSendingService;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +40,12 @@ Route::get('/postcard', function () {
 
 Route::get('/facades', function () {
     Postcard::sendPostcard('some message', 'birat@gmail.com');
+});
+
+Route::get('/macros', function () {
+    //custom defined macros on boot function AppServiceProvider
+    // return Str::prefix('name');
+    // return Response::customErrResponse('Error in pagination');
+    //dedicated mixins class
+    return Str::postfix('somename');
 });

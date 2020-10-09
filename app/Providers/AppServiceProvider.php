@@ -3,12 +3,15 @@
 namespace App\Providers;
 
 use App\Models\Channel;
+use Illuminate\Support\Str;
+use App\PostcardSendingService;
 use App\Billing\BankPaymentGateway;
 use Illuminate\Support\Facades\View;
 use App\Billing\PaymentGatewayContract;
+use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Views\Composers\ChannelComposer;
-use App\PostcardSendingService;
+use App\Mixins\StrMixins;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,5 +56,20 @@ class AppServiceProvider extends ServiceProvider
          */
         // View::composer(['post.create', 'channel.index'], ChannelComposer::class);
         View::composer(['channel.partials.channels-dropdown', 'channel.*'], ChannelComposer::class);
+
+        /**
+         * Macros implementation
+         */
+        Str::macro('prefix', function ($name) {
+            return 'AB-' . $name;
+        });
+        Str::mixin(new StrMixins());
+
+        ResponseFactory::macro('customErrResponse', function ($err = 'Some custom error') {
+            return [
+                'message' => $err,
+                'err_code' => 407
+            ];
+        });
     }
 }
