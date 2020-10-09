@@ -30,7 +30,7 @@ Route::get('/payment', [App\Http\Controllers\PayOrderController::class, 'store']
 Route::get('/channels', [App\Http\Controllers\ChannelController::class, 'index'])->name('channels.index');
 
 Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'])->name('posts.create');
-
+Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
 /**
  * learning facades
  */
