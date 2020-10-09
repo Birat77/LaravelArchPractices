@@ -2,16 +2,12 @@
 
 namespace App\QueryFilters;
 
-use Closure;
+use App\QueryFilters\Filters;
 
-class Active
+class Active extends Filters
 {
-    public function handle($request, Closure $next)
+    protected function applyFilters($builder)
     {
-        if (!request()->has('active')) {
-            return $next($request);
-        }
-        $builder  = $next($request);
-        return $builder->where('active', request()->get('active'));
+        return $builder->where('active', request('active'));
     }
 }

@@ -27,17 +27,8 @@ class PostController extends Controller
         /**
          * pipeline method
          */
-        $posts = app(Pipeline::class)
-            ->send(Post::query())
-            ->through([
-                Active::class,
-                Sort::class
-            ])
-            ->thenReturn()
-            ->get();
 
-        // dd($posts);
-
+        $posts = Post::allPosts();
 
         return view('post.index', compact('posts'));
     }
