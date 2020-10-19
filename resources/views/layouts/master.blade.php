@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    {{-- {!! htmlScriptTagJsApiV3([
+        'action' => 'homepage'
+    ]) !!} --}}
+    {!! htmlScriptTagJsApi([
+        'action' => 'homepage',
+        'callback_then' => 'callbackThen',
+        'callback_catch' => 'callbackCatch'
+    ]) !!}
 </head>
 <body>
     <div id="app" class="flex-center position-ref full-height">
